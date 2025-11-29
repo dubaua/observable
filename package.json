@@ -6,6 +6,7 @@
   "main": "dist/observable.min.js",
   "umd:main": "dist/observable.umd.js",
   "module": "dist/observable.mjs",
+  "types": "observable.d.ts",
   "keywords": [
     "reactive",
     "js"
@@ -18,16 +19,19 @@
   "email": "dubaua@gmail.com",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.10.4",
-    "@babel/plugin-proposal-class-properties": "^7.10.4",
-    "@babel/preset-env": "^7.10.4",
-    "@babel/register": "^7.10.4",
-    "babel-eslint": "^10.1.0",
-    "babel-plugin-module-resolver": "^4.0.0",
-    "eslint": "^7.4.0",
-    "eslint-config-standard": "^14.1.1",
-    "microbundle": "^0.12.2",
-    "mocha": "^8.0.1"
+    "@babel/core": "^7.28.5",
+    "@babel/eslint-parser": "^7.28.5",
+    "@babel/plugin-transform-class-properties": "^7.27.1",
+    "@babel/preset-env": "^7.28.5",
+    "@babel/register": "^7.28.3",
+    "babel-plugin-module-resolver": "^5.0.2",
+    "eslint": "^8.57.1",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.6.0",
+    "microbundle": "^0.15.1",
+    "mocha": "^11.7.5"
   },
   "scripts": {
     "test": "mocha --require @babel/register src/observable.spec.js",
