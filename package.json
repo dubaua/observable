@@ -1,6 +1,6 @@
 {
   "name": "@dubaua/observable",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "tiny observable class",
   "source": "src/observable.js",
   "main": "dist/observable.min.js",
