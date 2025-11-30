@@ -141,4 +141,24 @@ describe('Observable', () => {
 
     assert.strictEqual(callbackNotFiredIfValueDidntChanged, true);
   });
+
+  it('reset clears subscribers and restores initial value', () => {
+    const initial = 10;
+    const observable = new Observable(initial);
+
+    const log = [];
+    observable.subscribe((next) => {
+      log.push(next);
+    });
+
+    observable.value = 20;
+    observable.reset();
+    const resetBackToInitial = observable.value === initial;
+
+    observable.value = 30;
+    const subscriberNotCalledAfterReset = log.length === 1;
+
+    assert.strictEqual(resetBackToInitial, true);
+    assert.strictEqual(subscriberNotCalledAfterReset, true);
+  });
 });

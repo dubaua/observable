@@ -11,23 +11,29 @@
  */
 
 class Observable {
-  /** @type {T | undefined} */
+  /** @private @type {T | undefined} */
   internal;
 
-  /** @type {Array<Subscriber<T>>} */
+  /** @private @type {Array<Subscriber<T>>} */
   callbacks = [];
+
+  /** @private @type {T | undefined} */
+  initialValue;
 
   /** Allows to set initial value
    * @param {T} [initial]
+   * @public
    */
   constructor(initial) {
     this.internal = initial;
+    this.initialValue = initial;
   }
 
   /**
-   * Higher order function acceping subscriber and returning unsubscriber
+   * Higher order function accepting subscriber and returning unsubscribe function
    * @param {Subscriber<T>} callback a function accepting next and prev values
-   * @returns {() => void} unsubscriber function stops firing callback
+   * @returns {() => void} unsubscribe function stops firing callback
+   * @public
    */
   subscribe(callback) {
     if (typeof callback !== 'function') {
@@ -40,12 +46,12 @@ class Observable {
     };
   }
 
-  /** @returns {T | undefined} */
+  /** @returns {T | undefined} @public */
   get value() {
     return this.internal;
   }
 
-  /** @param {T | undefined} next */
+  /** @param {T | undefined} next @public */
   set value(next) {
     if (next !== this.internal) {
       const prev = this.internal;
@@ -54,6 +60,15 @@ class Observable {
         this.callbacks[i](this.internal, prev);
       }
     }
+  }
+
+  /**
+   * Clears subscribers and restores initial value
+   * @public
+   */
+  reset() {
+    this.callbacks = [];
+    this.internal = this.initialValue;
   }
 }
 

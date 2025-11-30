@@ -13,20 +13,29 @@ export type Subscriber<T> = (next: T, prev: T | undefined) => void;
 declare class Observable<T> {
     /** Allows to set initial value
      * @param {T} [initial]
+     * @public
      */
     constructor(initial?: T);
-    /** @type {T | undefined} */
-    internal: T | undefined;
-    /** @type {Array<Subscriber<T>>} */
-    callbacks: Subscriber<T>[];
+    /** @private @type {T | undefined} */
+    private internal;
+    /** @private @type {Array<Subscriber<T>>} */
+    private callbacks;
+    /** @private @type {T | undefined} */
+    private initialValue;
     /**
-     * Higher order function acceping subscriber and returning unsubscriber
+     * Higher order function accepting subscriber and returning unsubscribe function
      * @param {Subscriber<T>} callback a function accepting next and prev values
-     * @returns {() => void} unsubscriber function stops firing callback
+     * @returns {() => void} unsubscribe function stops firing callback
+     * @public
      */
-    subscribe(callback: Subscriber<T>): () => void;
-    /** @param {T | undefined} next */
-    set value(arg: T);
-    /** @returns {T | undefined} */
-    get value(): T;
+    public subscribe(callback: Subscriber<T>): () => void;
+    /** @param {T | undefined} next @public */
+    public set value(arg: T);
+    /** @returns {T | undefined} @public */
+    public get value(): T;
+    /**
+     * Clears subscribers and restores initial value
+     * @public
+     */
+    public reset(): void;
 }
